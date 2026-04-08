@@ -1,4 +1,5 @@
 from tkinter import *
+import re
 
 i = 0
 
@@ -16,7 +17,8 @@ def borrar():
 def operaciones():
     try:
         operacion = entrada.get()
-        resultado = eval(operacion)
+        operacion_limpia = re.sub(r'\b0+(?=\d)', '', operacion)
+        resultado = eval(operacion_limpia)
         entrada.delete(0, END)
         entrada.insert(0, resultado)
     except:
