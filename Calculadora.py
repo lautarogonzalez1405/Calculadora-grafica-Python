@@ -2,6 +2,7 @@
 from tkinter import *
 import re
 from tkinter import messagebox
+import math
 
 i = 0
 
@@ -20,6 +21,7 @@ def click(valor):
     entrada.insert(i, valor)
     estado_resultado = False
     i = len(entrada.get())
+
 
 def clickNumero(valor):
     global i
@@ -47,10 +49,8 @@ def operaciones():
     global estado_resultado
     try:
         operacion = entrada.get()
-        operacion = re.sub(r'(\d+)²', r'(\1)**2', operacion)
-        operacion = re.sub(r'(\d+)³', r'(\1)**3', operacion)
-        operacion = re.sub(r'√(\d+)', r'(\1)**0.5', operacion)
-        #TODO: Agregar soporte para numeros dentro de parentesis, por ejemplo: (2 + 3)²
+        if 'sqrt' in operacion:
+            operacion = operacion.replace('sqrt', 'math.sqrt')
         operacion_limpia = re.sub(r'\b0+(?=\d)', '', operacion)
         resultado = eval(operacion_limpia)
         entrada.delete(0, END)
@@ -102,9 +102,9 @@ boton_suma = Button(root, text = '+', width = 5, height = 2, command = lambda: c
 boton_resta = Button(root, text = '-', width = 5, height =2, command = lambda: click('-'))
 boton_multiplicacion = Button(root, text = '*', width = 5, height = 2, command = lambda: click('*'))
 boton_division = Button(root, text = '/', width = 5, height = 2, command = lambda: click('/'))
-boton_raiz = Button(root, text = '√', width = 5, height = 2, command = lambda: click('√'))
-boton_cuadrado = Button(root, text = 'x²', width = 5, height = 2, command = lambda: click('²'))
-boton_cubo = Button(root, text = 'x³', width = 5, height = 2, command = lambda: click('³'))
+boton_raiz = Button(root, text = '√', width = 5, height = 2, command = lambda: click('sqrt('))
+boton_cuadrado = Button(root, text = 'x²', width = 5, height = 2, command = lambda: click('**2'))
+boton_cubo = Button(root, text = 'x³', width = 5, height = 2, command = lambda: click('**3'))
 boton_igual = Button(root, text = '=', width = 5, height = 2, command = lambda: operaciones())
 
 #ubicamos los botones
