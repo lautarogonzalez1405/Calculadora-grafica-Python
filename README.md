@@ -9,13 +9,18 @@ Esta es una calculadora básica con interfaz gráfica desarrollada en **Python**
 * Manejo de errores (evita cierres inesperados por entradas inválidas).
 * Diseño responsivo mediante el gestor de geometría `grid`.
 
+## ⌨️ Uso de Funciones Especiales
+Para asegurar un cálculo correcto, ten en cuenta lo siguiente:
+* **Raíz Cuadrada:** Al presionar `√`, se insertará `math.sqrt(`. Asegúrate de cerrar el paréntesis al final de tu número, por ejemplo: `math.sqrt(16)`.
+* **Potencias:** Los botones `x²` y `x³` insertarán el operador de potencia de Python (`**2` y `**3`).
+
 ## 🛠️ Tecnologías utilizadas
 * **Lenguaje:** Python 3.12.3
 * **Librería GUI:** Tkinter
 * **Control de Versiones:** Git & GitHub
 
 ## 📸 Captura de Pantalla
-![Captura de la Calculadora](calculadora.png)
+![Captura de la Calculadora](image.png)
 
 
 ## 📦 Instalación y Uso
