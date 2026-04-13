@@ -1,3 +1,4 @@
+
 from tkinter import *
 import re
 from tkinter import messagebox
@@ -12,8 +13,6 @@ def salir():
 
 def acerca_de():
     messagebox.showinfo("Acerca de", "Esta es una calculadora básica creada con Python y Tkinter. Permite realizar operaciones aritméticas simples como suma, resta, multiplicación y división. También incluye funciones para borrar la entrada y manejar errores de cálculo.")
-
-
 
 def click(valor):
     global i
@@ -48,6 +47,10 @@ def operaciones():
     global estado_resultado
     try:
         operacion = entrada.get()
+        operacion = re.sub(r'(\d+)²', r'(\1)**2', operacion)
+        operacion = re.sub(r'(\d+)³', r'(\1)**3', operacion)
+        operacion = re.sub(r'√(\d+)', r'(\1)**0.5', operacion)
+        #TODO: Agregar soporte para numeros dentro de parentesis, por ejemplo: (2 + 3)²
         operacion_limpia = re.sub(r'\b0+(?=\d)', '', operacion)
         resultado = eval(operacion_limpia)
         entrada.delete(0, END)
@@ -89,7 +92,7 @@ boton8 = Button(root, text = '8', width = 5, height = 2, command = lambda: click
 boton9 = Button(root, text = '9', width = 5, height = 2, command = lambda: clickNumero('9'))
 boton0 = Button(root, text = '0', width = 5, height = 2, command = lambda: clickNumero('0'))
 
-boton_borrar_todo = Button(root, text = 'AC', width = 5, height = 2, command = lambda: borrar())
+boton_borrar_todo = Button(root, text = 'AC', width = 13, height = 2, command = lambda: borrar())
 boton_borrar = Button(root, text = 'C', width = 5, height = 2, command = lambda: borrar_ultimo())
 boton_parentesis_abrir = Button(root, text = '(', width = 5, height = 2, command = lambda: clickNumero('('))
 boton_parentesis_cerrar = Button(root, text = ')', width = 5, height = 2, command = lambda: clickNumero(')'))
@@ -99,33 +102,39 @@ boton_suma = Button(root, text = '+', width = 5, height = 2, command = lambda: c
 boton_resta = Button(root, text = '-', width = 5, height =2, command = lambda: click('-'))
 boton_multiplicacion = Button(root, text = '*', width = 5, height = 2, command = lambda: click('*'))
 boton_division = Button(root, text = '/', width = 5, height = 2, command = lambda: click('/'))
+boton_raiz = Button(root, text = '√', width = 5, height = 2, command = lambda: click('√'))
+boton_cuadrado = Button(root, text = 'x²', width = 5, height = 2, command = lambda: click('²'))
+boton_cubo = Button(root, text = 'x³', width = 5, height = 2, command = lambda: click('³'))
 boton_igual = Button(root, text = '=', width = 5, height = 2, command = lambda: operaciones())
 
 #ubicamos los botones
 
-boton_borrar_todo.grid(row = 1, column = 0, padx = 5, pady = 5)
-boton_parentesis_abrir.grid(row = 1, column = 1, padx = 5, pady = 5)
-boton_parentesis_cerrar.grid(row = 1, column = 2, padx = 5, pady = 5)
-boton_division.grid(row = 1, column = 3, padx = 5, pady = 5)
+boton_borrar_todo.grid(row = 1, column = 0, columnspan=2, padx = 5, pady = 5)
+boton_cuadrado.grid(row = 1, column = 2, padx = 5, pady = 5)
+boton_cubo.grid(row = 1, column = 3, padx = 5, pady = 5)
+boton_raiz.grid(row = 2, column = 0, padx = 5, pady = 5)
+boton_parentesis_abrir.grid(row = 2, column = 1, padx = 5, pady = 5)
+boton_parentesis_cerrar.grid(row = 2, column = 2, padx = 5, pady = 5)
+boton_division.grid(row = 2, column = 3, padx = 5, pady = 5)
 
-boton7.grid(row = 2, column = 0, padx = 5, pady = 5)
-boton8.grid(row = 2, column = 1, padx = 5, pady = 5)
-boton9.grid(row = 2, column = 2, padx = 5, pady = 5)
-boton_multiplicacion.grid(row = 2, column = 3, padx = 5, pady = 5)
+boton7.grid(row = 3, column = 0, padx = 5, pady = 5)
+boton8.grid(row = 3, column = 1, padx = 5, pady = 5)
+boton9.grid(row = 3, column = 2, padx = 5, pady = 5)
+boton_multiplicacion.grid(row = 3, column = 3, padx = 5, pady = 5)
 
-boton4.grid(row = 3, column = 0, padx = 5, pady = 5)
-boton5.grid(row = 3, column = 1, padx = 5, pady = 5)
-boton6.grid(row = 3, column = 2, padx = 5, pady = 5)
-boton_resta.grid(row = 3, column = 3, padx = 5, pady = 5)
+boton4.grid(row = 4, column = 0, padx = 5, pady = 5)
+boton5.grid(row = 4, column = 1, padx = 5, pady = 5)
+boton6.grid(row = 4, column = 2, padx = 5, pady = 5)
+boton_resta.grid(row = 4, column = 3, padx = 5, pady = 5)
 
-boton1.grid(row = 4, column = 0, padx = 5, pady = 5)
-boton2.grid(row = 4, column = 1, padx = 5, pady = 5)
-boton3.grid(row = 4, column = 2, padx = 5, pady = 5)
-boton_suma.grid(row = 4, column = 3, padx = 5, pady = 5)
+boton1.grid(row = 5, column = 0, padx = 5, pady = 5)
+boton2.grid(row = 5, column = 1, padx = 5, pady = 5)
+boton3.grid(row = 5, column = 2, padx = 5, pady = 5)
+boton_suma.grid(row = 5, column = 3, padx = 5, pady = 5)
 
-boton_punto.grid(row = 5, column = 0, padx = 5, pady = 5)
-boton0.grid(row = 5, column = 1, padx = 5, pady = 5)
-boton_borrar.grid(row = 5, column = 2, padx = 5, pady = 5)
-boton_igual.grid(row = 5, column = 3, padx = 5, pady = 5)
+boton_punto.grid(row = 6, column = 0, padx = 5, pady = 5)
+boton0.grid(row = 6, column = 1, padx = 5, pady = 5)
+boton_borrar.grid(row = 6, column = 2, padx = 5, pady = 5)
+boton_igual.grid(row = 6, column = 3, padx = 5, pady = 5)
 
 root.mainloop() #ejecutamos la ventana
